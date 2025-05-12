@@ -1,74 +1,85 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-export default function Landing({isAuthenticated, setIsAuthenticated}) {
-  const [message, setMessage] = useState('')
+export default function Landing({ isAuthenticated, setIsAuthenticated }) {
+  const [message, setMessage] = useState("");
   const [numberAllTodoNotCompleted, setNumberAllTodoNotCompleted] = useState(0);
   const [numberAllTodo, setNumberAllTodo] = useState(0);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const showErrorMessage = () => {
-    if(errorMessage === ''){
-      return <div></div>
+    if (errorMessage === "") {
+      return <div></div>;
     }
 
-    return <div className="alert alert-danger" role="alert">
-      {errorMessage}
-    </div>
-  }
+    return (
+      <div className="alert alert-danger" role="alert">
+        {errorMessage}
+      </div>
+    );
+  };
 
   useEffect(() => {
     async function getAndSetNumberAllTodo() {
-      try{
-        const response = await axios.get('http://18.207.235.35:3001/api/todo/count', {
-          headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+      try {
+        const response = await axios.get(
+          "http://16.170.184.226/api/todo/count",
+          {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
           }
-        });
+        );
         setNumberAllTodo(response.data.count);
       } catch (error) {
-        setMessage('');
+        setMessage("");
         if (error.response) {
           setErrorMessage(error.response.data.message);
         } else {
-          setErrorMessage('Error: something happened');
+          setErrorMessage("Error: something happened");
         }
       }
     }
 
     async function getAndSetNumberAllTodoNotCompleted() {
-      try{
-        const response = await axios.get('http://18.207.235.35:3001/api/todo/count?isCompleted=false', {
-          headers: {
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+      try {
+        const response = await axios.get(
+          "http://16.170.184.226/api/todo/count?isCompleted=false",
+          {
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+            },
           }
-        });
+        );
 
         setNumberAllTodoNotCompleted(response.data.count);
       } catch (error) {
-        setMessage('');
+        setMessage("");
         if (error.response) {
           setErrorMessage(error.response.data.message);
         } else {
-          setErrorMessage('Error: something happened');
+          setErrorMessage("Error: something happened");
         }
       }
-      
     }
-    if(isAuthenticated){
+    if (isAuthenticated) {
       getAndSetNumberAllTodo();
       getAndSetNumberAllTodoNotCompleted();
-      setMessage(`Welcome, ${sessionStorage.getItem('name')}. You have ${numberAllTodoNotCompleted} todo not completed out of ${numberAllTodo} todo.`);
+      setMessage(
+        `Welcome, ${sessionStorage.getItem(
+          "name"
+        )}. You have ${numberAllTodoNotCompleted} todo not completed out of ${numberAllTodo} todo.`
+      );
     } else {
-      setMessage('Please sign in to continue');
+      setMessage("Please sign in to continue");
     }
-  }, [isAuthenticated, numberAllTodo, numberAllTodoNotCompleted])
+  }, [isAuthenticated, numberAllTodo, numberAllTodoNotCompleted]);
 
-	return (
-		<div className="text-center">
-			<h1>Todo List Application</h1>
+  return (
+    <div className="text-center">
+      <h1>Todo List Application</h1>
       {showErrorMessage()}
-			{message}
-		</div>
-	)
+      {message}
+    </div>
+  );
 }
