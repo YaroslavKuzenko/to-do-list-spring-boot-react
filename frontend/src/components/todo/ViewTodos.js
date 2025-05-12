@@ -25,16 +25,16 @@ function Todos({ isAuthenticated, setIsAuthenticated }) {
     const loadData = async () => {
       let response = null;
       try {
-        let url = `http://16.170.184.226/api/todo/${
+        let url = `http://16.170.184.226:3001/api/todo/${
           pageNumber - 1
         }/${pageSize}`;
 
         if (filter === "Completed") {
-          url = `http://16.170.184.226/api/todo/${
+          url = `http://16.170.184.226:3001/api/todo/${
             pageNumber - 1
           }/${pageSize}?isCompleted=true`;
         } else if (filter === "Not Completed") {
-          url = `http://16.170.184.226/api/todo/${
+          url = `http://16.170.184.226:3001/api/todo/${
             pageNumber - 1
           }/${pageSize}?isCompleted=false`;
         }
@@ -170,7 +170,7 @@ function Todos({ isAuthenticated, setIsAuthenticated }) {
   const markCompleted = async (id) => {
     try {
       await axios.put(
-        `http://16.170.184.226/api/todo/${id}/markcomplete`,
+        `http://16.170.184.226:3001/api/todo/${id}/markcomplete`,
         {},
         {
           headers: {
@@ -192,7 +192,7 @@ function Todos({ isAuthenticated, setIsAuthenticated }) {
 
   const deleteTodo = async (id) => {
     try {
-      await axios.delete(`http://16.170.184.226/api/todo/${id}`, {
+      await axios.delete(`http://16.170.184.226:3001/api/todo/${id}`, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         },

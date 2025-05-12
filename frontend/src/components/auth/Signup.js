@@ -18,7 +18,7 @@ function Signup({ isAuthenticated, setIsAuthenticated }) {
 
     try {
       const response = await axios.post(
-        "http://16.170.184.226/api/auth/signup",
+        "http://16.170.184.226:3001/api/auth/signup",
         { username, password }
       );
       sessionStorage.setItem("token", response.data.token);

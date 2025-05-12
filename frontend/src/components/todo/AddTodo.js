@@ -20,7 +20,7 @@ function AddTodo({ isAuthenticated, setIsAuthenticated }) {
 
     try {
       await axios.post(
-        "http://16.170.184.226/api/todo",
+        "http://16.170.184.226:3001/api/todo",
         { title, targetDate },
         {
           headers: {

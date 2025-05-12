@@ -25,7 +25,7 @@ function UpdateTodo({ isAuthenticated, setIsAuthenticated, match }) {
 
     try {
       await axios.put(
-        `http://16.170.184.226/api/todo/${match.params.id}`,
+        `http://16.170.184.226:3001/api/todo/${match.params.id}`,
         { title, targetDate },
         {
           headers: {
@@ -54,7 +54,7 @@ function UpdateTodo({ isAuthenticated, setIsAuthenticated, match }) {
       let response = null;
       try {
         response = await axios.get(
-          `http://16.170.184.226/api/todo/${match.params.id}`,
+          `http://16.170.184.226:3001/api/todo/${match.params.id}`,
           {
             headers: {
               Authorization: `Bearer ${sessionStorage.getItem("token")}`,

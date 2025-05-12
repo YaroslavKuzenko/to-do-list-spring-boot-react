@@ -23,7 +23,7 @@ export default function Landing({ isAuthenticated, setIsAuthenticated }) {
     async function getAndSetNumberAllTodo() {
       try {
         const response = await axios.get(
-          "http://16.170.184.226/api/todo/count",
+          "http://16.170.184.226:3001/api/todo/count",
           {
             headers: {
               Authorization: `Bearer ${sessionStorage.getItem("token")}`,
@@ -44,7 +44,7 @@ export default function Landing({ isAuthenticated, setIsAuthenticated }) {
     async function getAndSetNumberAllTodoNotCompleted() {
       try {
         const response = await axios.get(
-          "http://16.170.184.226/api/todo/count?isCompleted=false",
+          "http://16.170.184.226:3001/api/todo/count?isCompleted=false",
           {
             headers: {
               Authorization: `Bearer ${sessionStorage.getItem("token")}`,
